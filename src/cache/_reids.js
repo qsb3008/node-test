@@ -1,5 +1,6 @@
 /**
  * @author qsb
+ * _redis.js
  * @description 连接redis 的方法 get set
  */
 

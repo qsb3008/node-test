@@ -1,5 +1,6 @@
 /**
- * 
+ * @description 环境变量
+ * @author qsb
  */
 
 const ENV = process.env.NODE_ENV
