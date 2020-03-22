@@ -5,11 +5,12 @@
 const { registerUserNameNotExistInfo, registerFailInfo } =  require('../model/ErrorInfo')
 const { getUserInfo, createUser } = require('../services/user')
 const { SuccessModel, ErrorModel } = require('../model/ResModel')
+const { doCrypto } = require('../utils/cryp')
 /**
  * 用户名是否存在
  * @param {string} userName 用户名
  */
- async function isExist(userName) {
+async function isExist(userName) {
   const userInfo = await getUserInfo(userName)
   if (userInfo) {
       // { errno: 0, data: {....} }
@@ -33,7 +34,7 @@ async function register ({ userName, password, gender}) {
   try {
     await createUser({
       userName,
-      password,
+      password: doCrypto(password),
       gender
     })
     return new SuccessModel()
