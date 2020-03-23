@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node bin/www",
     "dev": "cross-env NODE_ENV=dev ./node_modules/.bin/nodemon bin/www",
-    "prd": "cross-env NODE_ENV=production pm2 start bin/www"
+    "prd": "cross-env NODE_ENV=production pm2 start bin/www",
+    "test": "cross-env NODE_ENV=test jest --runInBand --forceExit --colors"
   },
   "dependencies": {
     "ajv": "^6.12.0",
@@ -29,6 +30,8 @@
   },
   "devDependencies": {
     "cross-env": "^7.0.2",
-    "nodemon": "^1.19.1"
+    "jest": "^25.1.0",
+    "nodemon": "^1.19.1",
+    "supertest": "^4.0.2"
   }
 }
