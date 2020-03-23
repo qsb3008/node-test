@@ -2,8 +2,13 @@
  * @description 用户 逻辑
  * @author qsb
  */
-const { registerUserNameNotExistInfo, registerFailInfo, loginFailInfo } =  require('../model/ErrorInfo')
-const { getUserInfo, createUser } = require('../services/user')
+const {
+  registerUserNameNotExistInfo,
+  registerFailInfo,
+  loginFailInfo,
+  deleteUserFailInfo
+} =  require('../model/ErrorInfo')
+const { getUserInfo, createUser, deleteUser } = require('../services/user')
 const { SuccessModel, ErrorModel } = require('../model/ResModel')
 const { doCrypto } = require('../utils/cryp')
 /**
@@ -28,7 +33,7 @@ async function isExist(userName) {
 async function register ({ userName, password, gender}) {
   const userInfo = await getUserInfo(userName, password)
   if (userInfo) {
-    return ErrorModel(registerUserNameNotExistInfo)
+    return new ErrorModel(registerUserNameNotExistInfo)
   }
   
   try {
@@ -39,7 +44,7 @@ async function register ({ userName, password, gender}) {
     })
     return new SuccessModel()
   } catch (ex) {
-    console.error(ex.message, ex.stack)
+    // console.error(ex.message, ex.stack)
     return new ErrorModel(registerFailInfo)
   }
 
@@ -63,8 +68,20 @@ async function login(ctx, userName, password) {
   return new SuccessModel()
 }
 
+// 删除当前用户
+async function deleteCurUser (userName) {
+  // service
+  const result = await deleteUser(userName)
+  if (result) {
+    return new SuccessModel()
+  }
+  // 失败
+  return new ErrorModel(deleteUserFailInfo)
+}
+
 module.exports = {
   isExist,
   register,
-  login
+  login,
+  deleteCurUser
 }
