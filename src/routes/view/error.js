@@ -3,7 +3,6 @@
  */
 /**
  * @description error 404 路由
- * @author 双越老师
  */
 
 const router = require('koa-router')()
