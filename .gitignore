@@ -102,3 +102,6 @@ dist
 
 # TernJS port file
 .tern-port
+
+# 上传文件不提交
+uploadFiles
