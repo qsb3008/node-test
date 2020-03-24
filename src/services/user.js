@@ -59,8 +59,31 @@ async function deleteUser (userName) {
   return result > 0
 }
 
+async function updateUser (
+  { newNick, newPassword, newCity, newPicture },
+  { userName, password }
+) {
+  const whereOpt = {
+    userName
+  }
+  if (password) {
+    whereOpt.password = password
+  }
+  const updateData = {}
+  if (newNick) updateData.nickName = newNick
+  if (newPassword) updateData.password = newPassword
+  if (newPicture) updateData.picture = newPicture
+  if (newCity) updateData.city = newCity
+  // 执行修改
+  const result = await User.update(updateData, {
+    where: whereOpt
+  })
+  return result[0] > 0
+}
+
 module.exports = {
   getUserInfo,
   createUser,
-  deleteUser
+  deleteUser,
+  updateUser
 }
