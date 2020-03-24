@@ -7,7 +7,8 @@ const {
   registerFailInfo,
   loginFailInfo,
   deleteUserFailInfo,
-  changeInfoFailInfo
+  changeInfoFailInfo,
+  changePasswordFailInfo
 } =  require('../model/ErrorInfo')
 const { getUserInfo, createUser, deleteUser, updateUser } = require('../services/user')
 const { SuccessModel, ErrorModel } = require('../model/ResModel')
@@ -102,10 +103,32 @@ async function changeInfo (ctx, { nickName, city, picture }) {
   return new ErrorModel(changeInfoFailInfo)
 }
 
+async function changePassword(userName, password, newPassword) {
+  // service
+  const result = await updateUser({
+    newPassword: doCrypto(newPassword)
+  }, {
+    userName,
+    password: doCrypto(password)
+  })
+  if (result) {
+    return new SuccessModel()
+  }
+  return new ErrorModel(changePasswordFailInfo)
+}
+
+async function logout(ctx) {
+  // service
+  delete ctx.session.userInfo
+  return new SuccessModel()
+}
+
 module.exports = {
   isExist,
   register,
   login,
   deleteCurUser,
-  changeInfo
+  changeInfo,
+  changePassword,
+  logout
 }
