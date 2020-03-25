@@ -9,7 +9,7 @@ const logger = require('koa-logger')
 const session = require('koa-generic-session')
 const redisStore = require('koa-redis')
 
-const index = require('./routes/index')
+const blogViewRoute = require('./routes/view/blog')
 const userViewRoute = require('./routes/view/user')
 const userApiRoute = require('./routes/api/user')
 const utilsApiRoute = require('./routes/api/utils')
@@ -52,7 +52,7 @@ app.use(session({
 
 
 // routes
-app.use(index.routes(), index.allowedMethods())
+app.use(blogViewRoute.routes(), blogViewRoute.allowedMethods())
 app.use(userViewRoute.routes(), userViewRoute.allowedMethods)
 app.use(userApiRoute.routes(), userApiRoute.allowedMethods)
 app.use(utilsApiRoute.routes(), utilsApiRoute.allowedMethods)
