@@ -62,6 +62,32 @@ test('登录应该成功', async () => {
   COOKIE = res.header['set-cookie'].join(';')
 })
 
+// 修改页面信息
+test('修改基本信息应该成功', async () => {
+  const res = await server
+    .patch('/api/user/changeInfo')
+    .send({
+      nickName: '666',
+      city: '测试城市',
+      picture: '/test.png'
+    })
+    .set('cookie', COOKIE)
+  expect(res.body.errno).toBe(0)
+})
+
+// 修改密码应该成功
+test('修改密码应该成功', async () => {
+  const res = await server
+    .patch('/api/user/changePassword')
+    .send({
+      userName,
+      password,
+      newPassword: '666'
+    })
+    .set('cookie', COOKIE)
+  expect(res.body.errno).toBe(0)
+})
+
 // 删除用户应该成功
 test('删除应该成功', async () => {
   const res = await server
@@ -70,6 +96,14 @@ test('删除应该成功', async () => {
     .send({
       userName
     })
+  expect(res.body.errno).toBe(0)
+})
+
+// 退出
+test('退出应该成功', async () => {
+  const res = await server
+    .post('/api/user/logout')
+    .set('cookie', COOKIE)
   expect(res.body.errno).toBe(0)
 })
 
