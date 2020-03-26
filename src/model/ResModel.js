@@ -1,46 +1,48 @@
 /**
- * 
+ * @description res 的数据模型
+ * @author 双越老师
  */
 
+/**
+ * 基础模块
+ */
 class BaseModel {
-  constructor({errno, data, message}) {
-    this.errno = errno
-    if (data) {
-      this.data = data
+    constructor({errno, data, message}) {
+        this.errno = errno
+        if (data) {
+            this.data = data
+        }
+        if (message) {
+            this.message = message
+        }
     }
-    if (message) {
-      this.message = message
-    }
-  }
 }
+
 /**
  * 成功的数据模型
- *
- * @class SuccessModel
- * @extends {BaseModel}
  */
 class SuccessModel extends BaseModel {
-  constructor (data = {}) {
-    super({
-      errno: 0,
-      data
-    })
-  }
+    constructor(data = {}) {
+        super({
+            errno: 0,
+            data
+        })
+    }
 }
+
 /**
- * @class ErrorModel
- * @extends {BaseModel}
+ * 失败的数据模型
  */
 class ErrorModel extends BaseModel {
-  constructor ({errno, message}) {
-    super({
-      errno,
-      message
-    })
-  }
+    constructor({ errno, message }) {
+        super({
+            errno,
+            message
+        })
+    }
 }
 
 module.exports = {
-  ErrorModel,
-  SuccessModel
+    SuccessModel,
+    ErrorModel
 }
