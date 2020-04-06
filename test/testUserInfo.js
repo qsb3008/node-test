@@ -10,5 +10,5 @@
 
 module.exports = {
     USER_NAME: 'qsb',
-    COOKIE: 'weibo.sid=Wi7enBl-bUbp-yZyxEUFwXx5JJ8CmUoy; weibo.sid.sig=Ia-I66uBzvM2A2TUsTFdk1KUYak'
+    COOKIE: 'weibo.sid=GWo7kHTCQvcozs5reoO-lMuFOToJfDcm; weibo.sid.sig=Tm_4AncwwdrzEcZxX-UERgGEJCU'
 }
