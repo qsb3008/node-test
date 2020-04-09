@@ -34,6 +34,30 @@ async function getUsersByFollower(followerId) {
   }
 }
 
+async function addFollow(userId, followerId) {
+  // 添加一条关系
+  const result = await UserRelation.create({
+    userId,
+    followerId
+  })
+  return result.dataValues
+}
+
+async function deleteFollower(userId, followerId) {
+  // 添加一条关系
+  const result = await UserRelation.destroy({
+    where: {
+      userId,
+      followerId
+    }
+  })
+  console.log('=========')
+  console.log(result)
+  return result > 0
+}
+
 module.exports = {
-  getUsersByFollower
+  getUsersByFollower,
+  addFollow,
+  deleteFollower
 }

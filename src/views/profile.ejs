@@ -44,14 +44,14 @@
 
             <!-- 粉丝 -->
             <%- include('widgets/fans', {
-                count: 0,
-                userList: []
+                count: userData.fansData.count,
+                userList: userData.fansData.list
             })%>
 
             <!-- 关注 -->
             <%- include('widgets/followers', {
-                count: userData.followersData.count,
-                userList: userData.followersData.list
+                count: 0,
+                userList: []
             })%>
 
         </div> <!-- 右侧结束 -->
