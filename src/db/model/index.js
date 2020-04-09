@@ -14,7 +14,6 @@ Blog.belongsTo(User, {
 UserRelation.belongsTo(User, {
   foreignKey: 'followerId'
 })
-
 User.hasMany(UserRelation, {
   foreignKey: 'userId'
 })

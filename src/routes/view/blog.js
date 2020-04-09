@@ -8,7 +8,7 @@ const { loginRedirect } = require('../../middlewares/loginChecks')
 const { getProfileBlogList } = require('../../controller/blog-profile')
 const { isExist } = require('../../controller/user')
 const { getSquareBlogList } = require('../../controller/blog-square')
-const { getFans } = require('../../controller/user-relation')
+const { getFans, getFollowers } = require('../../controller/user-relation')
 // 首页
 router.get('/', loginRedirect, async (ctx, next) => {
     await ctx.render('index', {})
@@ -37,12 +37,19 @@ router.get('/profile/:userName', loginRedirect, async (ctx, next) => {
     curUserInfo = existResult.data
   }
   // 获取微博第一页数据
-  // controller
   const result = await getProfileBlogList(curUserName, 0)
   const { isEmpty, blogList, pageSize, pageIndex, count} = result.data
+
   // 获取粉丝
   const fansResult = await getFans(curUserInfo.id)
   const { count: fansCount, fansList } = fansResult.data
+
+  // 获取关注人列表
+  const followersResult = await getFollowers(curUserInfo.id)
+  const { count: followersCount, followersList } = followersResult.data
+  console.log(
+    '===========',
+    followersList)
 
   // 我是否关注了此人
   const amIFollowed = fansList.some(item => {
@@ -62,6 +69,10 @@ router.get('/profile/:userName', loginRedirect, async (ctx, next) => {
       fansData: {
         count: fansCount,
         list: fansList
+      },
+      followersData: {
+        count: followersCount,
+        list: followersList || []
       },
       amIFollowed
     }

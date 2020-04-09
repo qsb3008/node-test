@@ -3,7 +3,12 @@
 * @Author: qiushunbin
 * @Date: 2020-04-08 16:36:48
 */
-const { getUsersByFollower, addFollow, deleteFollower } = require('../services/user-relation')
+const {
+  getUsersByFollower,
+  getFollowersByUser,
+  addFollow,
+  deleteFollower
+} = require('../services/user-relation')
 const { SuccessModel, ErrorModel } = require('../model/ResModel.js')
 const { addFollowerFailInfo, deleteFollowerFailInfo } = require('../model/ErrorInfo')
 
@@ -14,6 +19,15 @@ async function getFans(userId) {
   return new SuccessModel({
     count,
     fansList
+  })
+}
+
+async function getFollowers(userId) {
+  const { count, userList } = await getFollowersByUser(userId)
+
+  return new SuccessModel({
+      count,
+      followersList: userList
   })
 }
 
@@ -41,5 +55,6 @@ async function unFollow(myUserId, curUserId) {
 module.exports = {
   getFans,
   follow,
-  unFollow
+  unFollow,
+  getFollowers
 }
